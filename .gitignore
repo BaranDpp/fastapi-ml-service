@@ -1,0 +1,17 @@
+# Sanal ortamı engelle (Çok Önemli!)
+venv/
+env/
+
+# Python gereksiz dosyaları
+__pycache__/
+*.pyc
+
+# IDE ayarları
+.vscode/
+.idea/
+
+# Veri setleri ve Modeller (GitHub'ın 100MB sınırına takılmamak için)
+data/
+models/
+*.keras
+*.pkl
