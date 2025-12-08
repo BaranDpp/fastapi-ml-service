@@ -1,0 +1,51 @@
+{
+  "experiment_name": "soil_fertility_v1",
+  "data": {
+    "train_csv_path": "data/ai-task-2-train.csv",
+    "test_csv_path": "data/ai-task-2-test.csv",
+    "target_column": "target",
+    "feature_columns": [
+      "temperature",
+      "humidity",
+      "soil_moisture",
+      "rain",
+      "pH",
+      "fertilizer_used"
+    ],
+    "shuffle": true,
+    "test_size": 0.2,
+    "random_state": 42
+  },
+  "preprocessing": {
+    "impute_strategy": "median",
+    "scale_features": true,
+    "class_imbalance_method": "smote", 
+    "drop_columns": []
+  },
+  "model": {
+    "type": "random_forest", 
+    "params": {
+      "n_estimators": 200,
+      "max_depth": 8,
+      "min_samples_split": 4,
+      "min_samples_leaf": 2,
+      "n_jobs": -1,
+      "random_state": 42
+    }
+  },
+  "training": {
+    "cv_folds": 5,
+    "scoring": "f1",
+    "save_model_path": "models/soil_rf_v1.pkl"
+  },
+  "evaluation": {
+    "metrics": [
+      "accuracy",
+      "precision",
+      "recall",
+      "f1",
+      "roc_auc"
+    ],
+    "save_report_path": "reports/soil_rf_v1.json"
+  }
+}

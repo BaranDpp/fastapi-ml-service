@@ -1,5 +1,5 @@
-from fastapi import FastAPI
-from app.api.v1.router import api_router  # <-- Düzeltilen satır (Nokta yok)
+from fastapi import FastAPI #FastAPI yi entegre ediyoruz
+from app.api.v1.router import api_router #routerimize bağlanıyoruz
 from app.core.config import settings
 
 app = FastAPI(
