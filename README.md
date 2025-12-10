@@ -129,8 +129,7 @@ Evaluates the trained model against the test set and generates a report.
   "output_report_path": "reports/test_results.json"
 }
 ```
-
-## 🤝 Contribution
+ 🤝 Contribution
 
 1.  Fork the project.
 2.  Create a feature branch (`git checkout -b feature/NewFeature`).
