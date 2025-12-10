@@ -1,26 +1,44 @@
-# app/schemas/config.py
-from pydantic import BaseModel
-from typing import List, Optional, Literal, Dict, Any
+from pydantic import BaseModel, ConfigDict
+from typing import List, Literal, Dict, Any
 
-class DataConfig(BaseModel):
-    train_csv_path: str
-    test_csv_path: str
+# --- 1. Ortak Yapılar ---
+class ModelConfig(BaseModel):
+    type: Literal["random_forest", "xgboost", "neural_network"]
+    params: Dict[str, Any]
+
+# --- 2. Data Processing Config ---
+class DataProcessingConfig(BaseModel):
+    raw_data_path: str
     target_column: str
     feature_columns: List[str]
-    shuffle: bool = True
     test_size: float = 0.2
+    random_state: int = 42
+    output_train_path: str
+    output_test_path: str
 
-class ModelConfig(BaseModel):
-    # Literal sayesinde sadece bu 3 değer gelebilir, yoksa hata verir.
-    type: Literal["random_forest", "xgboost", "neural_network"]
-    params: Dict[str, Any] # Esnek parametreler (epoch, depth vs.)
-
-class TrainingConfig(BaseModel):
-    cv_folds: int = 5
-    save_model_path: str
-
-class MLPipelineConfig(BaseModel):
+# --- 3. Training Config ---
+class ModelTrainingConfig(BaseModel):
+    train_data_path: str
+    target_column: str
+    feature_columns: List[str]
+    
+    # Veri alanının adı 'algorithm_config' olduğu için sorun yok
+    algorithm_config: ModelConfig 
+    
     experiment_name: str
-    data: DataConfig
-    model: ModelConfig
-    training: TrainingConfig
+    save_model_path: str
+    
+    # DÜZELTME: İsmi 'model_config' olmalı!
+    model_config = ConfigDict(protected_namespaces=())
+
+# --- 4. Testing Config ---
+class ModelTestingConfig(BaseModel):
+    test_data_path: str
+    model_path: str
+    model_type: Literal["random_forest", "xgboost", "neural_network"]
+    target_column: str
+    feature_columns: List[str]
+    output_report_path: str
+    
+    # DÜZELTME: İsmi 'model_config' olmalı!
+    model_config = ConfigDict(protected_namespaces=())
