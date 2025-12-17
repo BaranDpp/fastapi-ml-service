@@ -1,17 +1,22 @@
-# Sanal ortamı engelle (Çok Önemli!)
+# Python System Files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
 venv/
 env/
+.env
 
-# Python gereksiz dosyaları
-__pycache__/
-*.pyc
-
-# IDE ayarları
-.vscode/
-.idea/
-
-# Veri setleri ve Modeller (GitHub'ın 100MB sınırına takılmamak için)
+# ML & Data Files (Bunlar GitHub'a gitmez, kullanıcı kendi üretir)
 data/
 models/
-*.keras
-*.pkl
+reports/
+
+# MLOps (MLflow verileri çok yer kaplar, gitmemeli)
+mlruns/
+.trash/
+
+# IDE Settings
+.vscode/
+.idea/
