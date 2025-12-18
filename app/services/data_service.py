@@ -14,7 +14,12 @@ class DataService:
             logger.error(error_msg)
             raise FileNotFoundError(error_msg)
         
-        df = pd.read_csv(config.raw_data_path)
+        if config.raw_data_path.endswith('.csv'):
+            df = pd.read_csv(config.raw_data_path)
+        elif config.raw_data_path.endswith(('.xls', '.xlsx')):
+            df = pd.read_excel(config.raw_data_path)
+        else:
+            raise ValueError("Geçersiz dosya formatı. Lütfen .csv veya .xlsx dosyası kullanın.")
         
         # 2. Güvenlik Kontrolleri
         missing_features = [col for col in config.feature_columns if col not in df.columns]

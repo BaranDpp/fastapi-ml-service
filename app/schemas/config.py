@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict
-from typing import List, Literal, Dict, Any
+from typing import List, Literal, Dict, Any, Optional
 
 # --- 1. Ortak Yapılar ---
 class ModelConfig(BaseModel):
@@ -8,37 +8,38 @@ class ModelConfig(BaseModel):
 
 # --- 2. Data Processing Config ---
 class DataProcessingConfig(BaseModel):
-    raw_data_path: str
+    # BURASI DEĞİŞTİ: Alanı geri getirdik ama Optional yaptık (Boş geçilebilir)
+    raw_data_path: Optional[str] = None 
+    
     target_column: str
     feature_columns: List[str]
     test_size: float = 0.2
     random_state: int = 42
-    output_train_path: str
-    output_test_path: str
+    output_train_path: str = "data/processed_train.csv"
+    output_test_path: str = "data/processed_test.csv"
 
 # --- 3. Training Config ---
 class ModelTrainingConfig(BaseModel):
-    train_data_path: str
+    # BURASI DEĞİŞTİ: Alanı geri getirdik ama Optional yaptık
+    train_data_path: Optional[str] = None
+    
     target_column: str
     feature_columns: List[str]
-    
-    # Veri alanının adı 'algorithm_config' olduğu için sorun yok
-    algorithm_config: ModelConfig 
-    
+    algorithm_config: ModelConfig
     experiment_name: str
-    save_model_path: str
+    save_model_path: str = "models/model.pkl"
     
-    # DÜZELTME: İsmi 'model_config' olmalı!
     model_config = ConfigDict(protected_namespaces=())
 
 # --- 4. Testing Config ---
 class ModelTestingConfig(BaseModel):
-    test_data_path: str
-    model_path: str
+    # BURASI DEĞİŞTİ: Alanları geri getirdik ama Optional yaptık
+    test_data_path: Optional[str] = None
+    model_path: Optional[str] = None
+    
     model_type: Literal["random_forest", "xgboost", "neural_network"]
     target_column: str
     feature_columns: List[str]
-    output_report_path: str
+    output_report_path: str = "reports/test_results.json"
     
-    # DÜZELTME: İsmi 'model_config' olmalı!
     model_config = ConfigDict(protected_namespaces=())
