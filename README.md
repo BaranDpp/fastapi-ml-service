@@ -36,5 +36,5 @@ cd proje-ismi
 
 pip install -r requirements.txt
 
-4. Uygulamayı Başlatın
+3. Uygulamayı Başlatın
 uvicorn app.main:app --reload
